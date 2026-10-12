@@ -1,4 +1,4 @@
-/* ===== TEMA: latar hitam-merah, teks kuning dan abu ===== */
+/* ===== TEMA ===== */
 :root {
   --merah: #e11d2e;
   --merah-tua: #5a0a12;
@@ -7,8 +7,11 @@
   --abu-tua: #8a8a8a;
   --hitam: #050505;
   --panel: #120708;
-  --ruang: 120px;   /* jarak atas+bawah body: 80px + 40px */
+  --ruang: 120px;   
 }
+
+/* Padding & border dihitung di dalam lebar elemen */
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -42,7 +45,7 @@ b { color: var(--kuning); }
 
 /* Halaman 1: tidak bisa di-scroll (class dipasang oleh script.js) */
 html.tanpa-scroll, body.tanpa-scroll { overflow: hidden; height: 100%; overscroll-behavior: none; }
-body.tanpa-scroll { position: fixed; width: 100%; }
+body.tanpa-scroll { position: fixed; inset: 0; width: 100%; }
 /* Halaman 1 dibuat PAS setinggi layar, sisanya dipotong -> tidak ada yang bisa di-scroll */
 .halaman:first-of-type.aktif { height: calc(100vh - var(--ruang)); height: calc(100dvh - var(--ruang)); overflow: hidden; }
 .halaman:first-of-type .hero { height: 34vh; height: 34dvh; margin-bottom: 8px; }
@@ -138,11 +141,21 @@ input[type=range] { width: 100%; accent-color: var(--merah); }
   nav { display: flex; overflow-x: auto; gap: 14px; justify-content: flex-start; }
   nav a { flex-shrink: 0; white-space: nowrap; }
 
-  /* Halaman 1: isi dipusatkan, foto lebih pendek agar muat satu layar */
-  .halaman.aktif:first-of-type { display: flex; flex-direction: column; align-items: center; }
-  .halaman:first-of-type .hero { width: 100%; height: 26vh; height: 26dvh; }
-  .halaman:first-of-type h3 { font-size: 0.85rem; letter-spacing: 0.05em; }
-  .besar { width: 100%; padding: 14px 16px; }
+  /* Halaman 1: flex kolom */
+  .halaman.aktif:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+    width: 100%;
+  }
+  .halaman:first-of-type > * { width: 100%; min-width: 0; margin-top: 0; margin-bottom: 0; }
+  .halaman:first-of-type .hero { height: 26dvh; flex-shrink: 0; }
+  .halaman:first-of-type h1 { font-size: 2.6rem; overflow-wrap: anywhere; }
+  .halaman:first-of-type h3 { font-size: 0.8rem; letter-spacing: 0.04em; overflow-wrap: anywhere; }
+  .halaman:first-of-type p { font-size: 1rem; margin: 0; }
+  .besar { width: 100%; padding: 14px 16px; white-space: normal; }
 
   /* Tombol pilihan & Netflix */
   #embrace, #human, .tombol, #ganti { display: block; width: 100%; box-sizing: border-box; text-align: center; margin: 6px 0; }
